@@ -1,8 +1,8 @@
-import { shallowMount, createLocalVue } from "@vue/test-utils";
-import Vuex from "vuex";
-import VueRouter from "vue-router";
-import Home from "./Home.vue";
-import auth from "../store/modules/auth";
+import { shallowMount, createLocalVue } from '@vue/test-utils';
+import Vuex from 'vuex';
+import VueRouter from 'vue-router';
+import Home from './Home.vue';
+import auth from '../store/modules/auth';
 
 const localVue = createLocalVue();
 
@@ -10,7 +10,7 @@ localVue.use(Vuex, VueRouter);
 
 const router = new VueRouter();
 
-describe("Home", () => {
+describe('Home', () => {
   let actions = {};
   let state = {};
   let store;
@@ -22,19 +22,19 @@ describe("Home", () => {
           namespaced: true,
           state,
           actions,
-          getters: auth.getters
-        }
-      }
+          getters: auth.getters,
+        },
+      },
     });
   });
 
-  it("There is a main element ", async () => {
+  it('There is a main element ', async () => {
     const wrapper = shallowMount(Home, {
       store,
       localVue,
       router,
-      stubs: ["router-link", "router-view"]
+      stubs: ['router-link', 'router-view'],
     });
-    expect(wrapper.contains("main")).toBe(true);
+    expect(wrapper.contains('main')).toBe(true);
   });
 });

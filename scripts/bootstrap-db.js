@@ -1,40 +1,40 @@
 /* idempotent operation to bootstrap database */
-const faunadb = require("faunadb");
-const chalk = require("chalk");
+const faunadb = require('faunadb');
+const chalk = require('chalk');
 
 const q = faunadb.query;
 
 /*  */
 function setupFaunaDB() {
-  console.log(chalk.yellow("Attempting to create the DB schemas..."));
+  console.log(chalk.yellow('Attempting to create the DB schemas...'));
 
   let key = checkForFaunaKey();
 
   const client = new faunadb.Client({
-    secret: key
+    secret: key,
   });
 
   /* Based on your requirements, change the schema here */
   return client
     .query(
       q.CreateCollection({
-        name: "users"
+        name: 'users',
       })
     )
     .then(() =>
       client.query(
         q.Do(
           q.CreateCollection({
-            name: "posts",
+            name: 'entries',
             permissions: {
-              create: q.Collection("users")
-            }
+              create: q.Collection('users'),
+            },
           }),
           q.CreateCollection({
-            name: "journals",
+            name: 'calendars',
             permissions: {
-              create: q.Collection("users")
-            }
+              create: q.Collection('users'),
+            },
           })
         )
       )
@@ -43,55 +43,55 @@ function setupFaunaDB() {
       client.query(
         q.Do(
           q.CreateIndex({
-            name: "users_by_id",
-            source: q.Collection("users"),
+            name: 'users_by_id',
+            source: q.Collection('users'),
             terms: [
               {
-                field: ["data", "id"]
-              }
+                field: ['data', 'id'],
+              },
             ],
-            unique: true
+            unique: true,
           }),
           q.CreateIndex({
             // this index is optional but useful in development for browsing users
             name: `all_users`,
-            source: q.Collection("users")
+            source: q.Collection('users'),
           }),
           q.CreateIndex({
-            name: "all_posts",
-            source: q.Collection("posts"),
+            name: 'all_entries',
+            source: q.Collection('entries'),
             permissions: {
-              read: q.Collection("users")
-            }
+              read: q.Collection('users'),
+            },
           }),
           q.CreateIndex({
-            name: "all_journals",
-            source: q.Collection("journals"),
+            name: 'all_calendars',
+            source: q.Collection('calendars'),
             permissions: {
-              read: q.Collection("users")
-            }
+              read: q.Collection('users'),
+            },
           }),
           q.CreateIndex({
-            name: "posts_by_journal",
-            source: q.Collection("posts"),
+            name: 'entries_by_calendar',
+            source: q.Collection('entries'),
             terms: [
               {
-                field: ["data", "journal"]
-              }
+                field: ['data', 'calendar'],
+              },
             ],
             permissions: {
-              read: q.Collection("users")
-            }
+              read: q.Collection('users'),
+            },
           })
         )
       )
     )
-    .catch(e => {
-      if (e.message === "instance already exists") {
-        console.log("Schemas are already created... skipping");
+    .catch((e) => {
+      if (e.message === 'instance already exists') {
+        console.log('Schemas are already created... skipping');
         process.exit(0);
       } else {
-        console.error("There was a problem bootstrapping the db", e);
+        console.error('There was a problem bootstrapping the db', e);
         throw e;
       }
     });
@@ -130,7 +130,7 @@ setupFaunaDB()
   .then(() => {
     console.log(chalk.green(`Bootstraping DB scheamas was successful!`));
   })
-  .catch(err => {
+  .catch((err) => {
     console.log(
       chalk.red.bold(
         `There was an issue bootstrapping the DB scheamas due to: ${err}`

@@ -1,30 +1,44 @@
 <template>
-  <div v-if="deleted === false" class="post-card">
-    <span class="title">{{ post.item.data.title }} </span>
+  <div
+    v-if="deleted === false"
+    class="entry-card"
+  >
+    <span class="title">{{ entry.item.data.title }} </span>
     <input
-      v-model="updatedPost.title"
+      v-model="updatedEntry.title"
       v-focus
       class="title"
       type="text"
-      :placeholder="post.item.data.title"
+      :placeholder="entry.item.data.title"
       @click="editMode = true"
-      @keyup.enter="emitPostUpdate"
+      @keyup.enter="emitEntryUpdate"
     />
     <input
-      v-model="updatedPost.contents"
+      v-model="updatedEntry.contents"
       class="contents"
       type="text"
-      :placeholder="post.item.data.contents"
+      :placeholder="entry.item.data.contents"
       @click="editMode = true"
-      @keyup.enter="emitPostUpdate"
+      @keyup.enter="emitEntryUpdate"
     />
-    <button v-if="editMode" class="delete rnd-corner-a" @click="deleteJournal">
+    <button
+      v-if="editMode"
+      class="delete rnd-corner-a"
+      @click="deleteJournal"
+    >
       🗑️ Delete
     </button>
-    <button class="update rnd-corner-b" @click="editMode = !editMode">
+    <button
+      class="update rnd-corner-b"
+      @click="editMode = !editMode"
+    >
       ✏️ Edit
     </button>
-    <button v-if="editMode" class="update rnd-corner-b" @click="emitPostUpdate">
+    <button
+      v-if="editMode"
+      class="update rnd-corner-b"
+      @click="emitEntryUpdate"
+    >
       👍 Update
     </button>
   </div>
@@ -33,42 +47,42 @@
 <script>
 export default {
   props: {
-    post: {
+    entry: {
       type: Object
     }
   },
-  data() {
+  data () {
     return {
       editMode: false,
-      updatedPost: {
-        title: "",
-        contents: ""
+      updatedEntry: {
+        title: '',
+        contents: ''
       },
       deleted: false
     };
   },
-  beforeMount() {
-    this.updatedPost = this.post.item.data;
+  beforeMount () {
+    this.updatedEntry = this.entry.item.data;
   },
   methods: {
-    emitPostUpdate() {
+    emitEntryUpdate () {
       this.editMode = false;
       //TODO: detect if anything has actually changed, as currently this is updating the db even if no changes were made
-      this.$emit("update-post", {
-        postRefID: this.post.item.ref.value.id,
-        updatedPost: this.updatedPost
+      this.$emit('update-entry', {
+        entryRefID: this.entry.item.ref.value.id,
+        updatedEntry: this.updatedEntry
       });
     },
-    deleteJournal() {
+    deleteJournal () {
       this.deleted = true;
-      this.$emit("delete-post", this.post);
+      this.$emit('delete-entry', this.entry);
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.post-card {
+.entry-card {
   background: var(--app-secondary-background-color);
   display: grid;
   min-width: 20rem;
@@ -77,9 +91,9 @@ export default {
   border-radius: 15px;
   box-shadow: 8px 8px 0px -4px rgba(0, 0, 0, 0.75);
   grid-template-areas:
-    "title  title  title"
-    "content content content"
-    "delete . update";
+    'title  title  title'
+    'content content content'
+    'delete . update';
   .title {
     grid-area: title;
     border-radius: 15px 15px 0px 0px;
@@ -89,7 +103,7 @@ export default {
     padding: 5px;
     text-transform: capitalize;
   }
-  input[type="text"].title {
+  input[type='text'].title {
     text-align: center;
   }
   .contents {
@@ -97,7 +111,7 @@ export default {
     margin: 20px;
     background-color: inherit;
   }
-  input[type="text"].contents {
+  input[type='text'].contents {
     text-align: center;
     padding: 0;
     border: none;
@@ -111,7 +125,7 @@ export default {
   }
 }
 
-.post-card:hover {
+.entry-card:hover {
   box-shadow: 11px 11px 0px -4px rgba(0, 0, 0, 0.75);
 }
 </style>

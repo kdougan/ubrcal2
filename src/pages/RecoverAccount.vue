@@ -21,7 +21,10 @@
         type="text"
         placeholder="hey@email.com"
       />
-      <button type="button" @click="requestPasswordRecover(crendentials.email)">
+      <button
+        type="button"
+        @click="requestPasswordRecover(crendentials.email)"
+      >
         Recover Account
       </button>
     </form>
@@ -29,19 +32,19 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions } from 'vuex';
 
 export default {
-  name: "RecoverAccount",
-  data() {
+  name: 'RecoverAccount',
+  data () {
     return {
       crendentials: {
-        email: ""
+        email: ''
       }
     };
   },
   methods: {
-    ...mapActions("auth", ["requestPasswordRecover"])
+    ...mapActions('auth', ['requestPasswordRecover'])
   }
 };
 </script>

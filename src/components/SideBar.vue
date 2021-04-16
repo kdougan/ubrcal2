@@ -1,15 +1,16 @@
 <template>
   <div class="medium-text">
     <transition name="slide">
-      <nav v-if="show" id="side-bar">
+      <nav
+        v-if="show"
+        id="side-bar"
+      >
         <ul class="nav-items">
           <li>
             <router-link :to="{ name: 'home' }">🏠 Home</router-link>
           </li>
           <li>
-            <router-link :to="{ name: 'journals' }"
-              >📔 Your Journals</router-link
-            >
+            <router-link :to="{ name: 'calendars' }">📔 Your Calendars</router-link>
           </li>
           <li>
             <router-link :to="{ name: 'profile' }">🆔 Your Profile</router-link>
@@ -21,9 +22,15 @@
       </nav>
     </transition>
 
-    <input id="show-nav" type="checkbox" />
+    <input
+      id="show-nav"
+      type="checkbox"
+    />
     <label for="show-nav">
-      <div id="hamburger-button" @click="show = !show">
+      <div
+        id="hamburger-button"
+        @click="show = !show"
+      >
         <svg
           width="40"
           height="40"
@@ -31,9 +38,18 @@
           xmlns="http://www.w3.org/2000/svg"
           preserveAspectRatio="none"
         >
-          <path class="line line_1" d="M0 40h62c13 0 6 28-4 18L35 35"></path>
-          <path class="line line_2" d="M0 50h70"></path>
-          <path class="line line_3" d="M0 60h62c13 0 6-28-4-18L35 65"></path>
+          <path
+            class="line line_1"
+            d="M0 40h62c13 0 6 28-4 18L35 35"
+          ></path>
+          <path
+            class="line line_2"
+            d="M0 50h70"
+          ></path>
+          <path
+            class="line line_3"
+            d="M0 60h62c13 0 6-28-4-18L35 65"
+          ></path>
         </svg>
       </div>
     </label>
@@ -44,11 +60,11 @@
 import ThemeToggle from "./ThemeToggle.vue";
 
 export default {
-  name: "BurgerMenu",
+  name: 'BurgerMenu',
   components: {
     ThemeToggle
   },
-  data() {
+  data () {
     return {
       show: false
     };
@@ -57,7 +73,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-input[type="checkbox"] {
+input[type='checkbox'] {
   display: none;
 }
 
@@ -87,7 +103,7 @@ input[type="checkbox"] {
     stroke-dashoffset: 82;
     transition: 500ms ease-out;
 
-    input[type="checkbox"]:checked + label & {
+    input[type='checkbox']:checked + label & {
       stroke-dashoffset: 26;
     }
   }
@@ -98,7 +114,7 @@ input[type="checkbox"] {
     transition: 500ms ease-out;
     // display: none;
 
-    input[type="checkbox"]:checked + label & {
+    input[type='checkbox']:checked + label & {
       stroke-dashoffset: 25;
     }
   }
@@ -109,7 +125,7 @@ input[type="checkbox"] {
     transition: 500ms ease-out;
     // display: none;
 
-    input[type="checkbox"]:checked + label & {
+    input[type='checkbox']:checked + label & {
       stroke-dashoffset: 26;
     }
   }

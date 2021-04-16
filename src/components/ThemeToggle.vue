@@ -1,7 +1,11 @@
 <template>
   <div>
     <label class="switch">
-      <input v-model="darkMode" type="checkbox" class="theme-switch" />
+      <input
+        v-model="darkMode"
+        type="checkbox"
+        class="theme-switch"
+      />
       <span class="slider round"> <span>🌚</span> <span>🌞</span> </span>
     </label>
   </div>
@@ -9,27 +13,27 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       darkMode: false
     };
   },
   watch: {
-    darkMode: function() {
+    darkMode: function () {
       // add/remove class to/from html tag
       let htmlElement = document.documentElement;
       if (this.darkMode) {
-        localStorage.setItem("theme", "dark");
-        htmlElement.setAttribute("data-theme", "dark");
+        localStorage.setItem('theme', 'dark');
+        htmlElement.setAttribute('data-theme', 'dark');
       } else {
-        localStorage.setItem("theme", "light");
-        htmlElement.setAttribute("data-theme", "light");
+        localStorage.setItem('theme', 'light');
+        htmlElement.setAttribute('data-theme', 'light');
       }
     }
   },
-  beforeMount() {
+  beforeMount () {
     // check saved theme and apply
-    localStorage.getItem("theme") === "dark"
+    localStorage.getItem('theme') === 'dark'
       ? (this.darkMode = true)
       : (this.darkMode = false);
   }
@@ -70,7 +74,7 @@ export default {
 
 .slider:before {
   position: absolute;
-  content: "";
+  content: '';
   height: 26px;
   width: 26px;
   left: 4px;

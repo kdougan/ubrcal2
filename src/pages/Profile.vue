@@ -1,5 +1,8 @@
 <template>
-  <div id="profile-background" class="space">
+  <div
+    id="profile-background"
+    class="space"
+  >
     <h1>🆔 Your Profile</h1>
     <div class="profile-panel">
       <div class="stack">
@@ -19,7 +22,10 @@
         :hidden-on-start="modalHiddenOnStart"
       >
         <h1>Update Your User Account Details</h1>
-        <form class="stack" action="">
+        <form
+          class="stack"
+          action=""
+        >
           <label for="name">User Name</label>
           <input
             id="name"
@@ -41,7 +47,10 @@
             placeholder="******"
           />
 
-          <button type="button" @click="update(userData)">Update</button>
+          <button
+            type="button"
+            @click="update(userData)"
+          >Update</button>
         </form>
       </Modal>
       <!-- Bug: logging out throws a console error, likely to do with Vue not handling the state change correctly.
@@ -57,20 +66,20 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
-import Modal from "../components/Modal.vue";
+import { mapGetters, mapActions } from 'vuex';
+import Modal from '../components/Modal.vue';
 
 export default {
-  name: "Profile",
+  name: 'Profile',
   components: {
     Modal
   },
-  data() {
+  data () {
     return {
       userData: {
-        password: "",
+        password: '',
         data: {
-          full_name: ""
+          full_name: ''
         }
       },
       modalHiddenOnStart: true,
@@ -79,50 +88,50 @@ export default {
   },
 
   computed: {
-    ...mapGetters("auth", ["currentUser", "netlifyUserLoggedIn"]),
-    passwordType() {
-      return this.hidePassword ? "password" : "text";
+    ...mapGetters('auth', ['currentUser', 'netlifyUserLoggedIn']),
+    passwordType () {
+      return this.hidePassword ? 'password' : 'text';
     },
-    passwordIcon() {
-      return this.hidePassword ? "eye-open" : "eye-closed";
+    passwordIcon () {
+      return this.hidePassword ? 'eye-open' : 'eye-closed';
     }
   },
-  created() {
-    if (this.$route.query.showUpdateUserModal === "true") {
+  created () {
+    if (this.$route.query.showUpdateUserModal === 'true') {
       this.modalHiddenOnStart = false;
     }
   },
   methods: {
-    ...mapActions("auth", [
-      "updateUserMetaData",
-      "getUserJWTToken",
-      "getCurrentUser",
-      "attemptLogout",
-      "updateUserAccount"
+    ...mapActions('auth', [
+      'updateUserMetaData',
+      'getUserJWTToken',
+      'getCurrentUser',
+      'attemptLogout',
+      'updateUserAccount'
     ]),
-    update(userData) {
+    update (userData) {
       let data = userData;
       data.email = this.currentUser.email;
       this.updateUserAccount(data)
         .then(() => {
-          alert("You have updated your profile");
+          alert('You have updated your profile');
         })
         .catch(error => {
-          alert("Sorry, something went wrong");
-          console.error("Failed to update user account: %o", error);
+          alert('Sorry, something went wrong');
+          console.error('Failed to update user account: %o', error);
         });
     },
-    logout() {
+    logout () {
       this.attemptLogout()
         .then(resp => {
-          alert("logged out");
-          this.$router.push("home");
-          console.log("logged out", resp);
+          alert('logged out');
+          this.$router.push('home');
+          console.log('logged out', resp);
         })
         .catch(error => {
-          alert("problem with logout");
+          alert('problem with logout');
           location.reload();
-          console.error("problem with logout", error);
+          console.error('problem with logout', error);
         });
     }
   }

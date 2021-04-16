@@ -17,33 +17,32 @@
 
       <p>
         If you want to see how this is all glued together check out the
-        <a href="https://github.com/chiubaca/vue-netlify-fauna-starter-kit"
-          >source code</a
-        >
+        <a href="https://github.com/chiubaca/vue-netlify-fauna-starter-kit">source code</a>
         . Happy hacking!
       </p>
     </div>
     <LoginSignup v-if="currentUser === null" />
-    <div v-else id="greeting">
+    <div
+      v-else
+      id="greeting"
+    >
       <h2>🖐️ Welcome Back {{ currentUser.user_metadata.full_name }}!</h2>
       <p>
         You're logged in. Go check out your
         <router-link :to="{ name: 'journals' }">journals ➡️ </router-link>.
       </p>
     </div>
-    <GithubCorner
-      url="https://github.com/chiubaca/vue-netlify-fauna-starter-kit"
-    />
+    <GithubCorner url="https://github.com/chiubaca/vue-netlify-fauna-starter-kit" />
   </main>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import LoginSignup from "../components/LoginSignup.vue";
-import GithubCorner from "../components/GithubCorner.vue";
+import { mapGetters } from 'vuex';
+import LoginSignup from '../components/LoginSignup.vue';
+import GithubCorner from '../components/GithubCorner.vue';
 
 export default {
-  name: "Home",
+  name: 'Home',
   components: {
     LoginSignup,
     GithubCorner
@@ -51,11 +50,11 @@ export default {
   props: {
     msg: String
   },
-  data() {
+  data () {
     return {};
   },
   computed: {
-    ...mapGetters("auth", ["currentUser"])
+    ...mapGetters('auth', ['currentUser'])
   }
 };
 </script>

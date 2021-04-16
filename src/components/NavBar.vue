@@ -1,13 +1,17 @@
 <template>
-  <nav v-if="currentUser" id="nav-bar">
+  <nav
+    v-if="currentUser"
+    id="nav-bar"
+  >
     <div id="nav-items">
       <router-link :to="{ name: 'home' }">🏠 Home</router-link>
 
-      <router-link :to="{ name: 'journals' }">📔 Your Journals</router-link>
+      <router-link :to="{ name: 'calendars' }">📔 Your Journals</router-link>
 
-      <router-link id="profile-link" :to="{ name: 'profile' }"
-        >🆔 Profile</router-link
-      >
+      <router-link
+        id="profile-link"
+        :to="{ name: 'profile' }"
+      >🆔 Profile</router-link>
 
       <ThemeToggle />
     </div>

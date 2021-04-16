@@ -4,7 +4,10 @@
     environment. Dont worry, this wont show in your production site.
     <br />Ensure Netlify Identity is enabled and you have set your assigned
     Netlify URL here:
-    <span v-if="siteURL" id="url-hint">Set URL: https://{{ siteURL }} </span>
+    <span
+      v-if="siteURL"
+      id="url-hint"
+    >Set URL: https://{{ siteURL }} </span>
     <div id="input-container">
       <span>https://</span>
       <input
@@ -14,7 +17,10 @@
       />
     </div>
 
-    <button type="button" @click="setURL()">SET</button>
+    <button
+      type="button"
+      @click="setURL()"
+    >SET</button>
 
     ⚠️ Note: Logging in via an external provider will redirect you back to your
     live Netlify URL.
@@ -22,21 +28,21 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex';
 
 export default {
-  name: "SetNetlifyURL",
-  data() {
+  name: 'SetNetlifyURL',
+  data () {
     return {
-      netlifyURL: ""
+      netlifyURL: ''
     };
   },
   computed: {
-    ...mapGetters("app", ["isDevEnvironment", "siteURL"])
+    ...mapGetters('app', ['isDevEnvironment', 'siteURL'])
   },
   methods: {
-    setURL() {
-      this.$store.commit("app/SET_SITE_URL", this.netlifyURL);
+    setURL () {
+      this.$store.commit('app/SET_SITE_URL', this.netlifyURL);
     }
   }
 };
